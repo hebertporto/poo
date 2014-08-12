@@ -10,7 +10,7 @@
     <body>
         <div class="container">
             <?php require_once('incs/main_menu.php'); ?>
-            <?php require_once('incs/home.php'); ?>
+            <?php require_once('incs/clientes.php'); ?>
         </div>
     <script src="/js/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
