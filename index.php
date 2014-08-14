@@ -1,3 +1,12 @@
+<?php
+$rota = parse_url("http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
+$url_final = substr($rota["path"], 1);
+
+if($url_final =='') # Traz a página Home ao acessar pela primeira vez.
+$url_final = 'home';
+
+
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -10,9 +19,11 @@
     <body>
         <div class="container">
             <?php require_once('incs/main_menu.php'); ?>
-            <?php require_once('incs/clientes.php'); ?>
+            <?php require_once('incs/'. $url_final. '.php'); ?>
         </div>
+
     <script src="/js/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/cliente.js"></script>
     </body>
 </html>
