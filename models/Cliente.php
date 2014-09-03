@@ -10,6 +10,24 @@ class Cliente implements ClienteClassificacao, ClienteEndereco {
     protected  $cpf;
     protected  $telefone;
     protected  $email;
+    protected  $endereco;
+
+    /**
+     * @param mixed $endereco
+     */
+    public function setEndereco($endereco)
+    {
+        $this->endereco = $endereco;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEndereco()
+    {
+        return $this->endereco;
+    }
 
 
     protected  $classificacao;
@@ -19,7 +37,7 @@ class Cliente implements ClienteClassificacao, ClienteEndereco {
 
     public function setEnderecoCobranca($enderecoCobranca)
     {
-        $this->$enderecoCobranca = $enderecoCobranca;
+        $this->enderecoCobranca = $enderecoCobranca;
         return $this;
     }
     public function getEnderecoCobranca()

@@ -13,6 +13,11 @@ class ClientePessoaJuridica implements ClienteClassificacao, ClienteEndereco
     private $classificacao;
     private $enderecoCobranca;
 
+
+    public function getNome()
+    {
+        return $this->razaoSocial;
+    }
     /**
      * @param mixed $enderecoCobranca
      */
@@ -52,7 +57,7 @@ class ClientePessoaJuridica implements ClienteClassificacao, ClienteEndereco
      */
     public function getClassificacao()
     {
-        return $this->classificacao;
+        return $this->classificacao * 4;
     }
 
     /**
