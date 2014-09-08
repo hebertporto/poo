@@ -2,10 +2,10 @@
 
 namespace POO\Clientes;
 
-use POO\Clientes\Ab\ClienteClassificacaoAbstract as Classificacao;
+use POO\Clientes\Ab\ClienteAbstract as Cliente;
 use POO\Clientes\Interfac\ClienteEndereco;
 
-class PessoaJuridica extends Classificacao implements ClienteEndereco
+class PessoaJuridica extends Cliente implements ClienteEndereco
 {
     protected $razaoSocial;
     protected $cnpj;

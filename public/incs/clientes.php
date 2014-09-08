@@ -1,91 +1,5 @@
 <?php
 
-
-
-$cliente0 = new POO\Clientes\PessoaFisica();
-$cliente0->setNome('Arnaldo Ronaldo')
-    ->setDataNascimento('25/09/2014')
-    ->setCpf('556.656.988-88')
-    ->setTelefone('(27)3536-5555')
-    ->setEmail('meuemail@emaildoido.com')
-    ->setClassificacao(2)
-    ->setEndereco('Rua das Lamentações...')
-    ->setEnderecoCobranca('Av. Bla Bla, N 800');
-
-$cliente1 = new POO\Clientes\PessoaFisica();
-$cliente1->setNome('Zezerus José Ronaldo')
-    ->setDataNascimento('25/09/2014')
-    ->setCpf('556.656.988-88')
-    ->setTelefone('(27)3536-5555')
-    ->setEmail('meuemail@emaildoido.com')
-    ->setClassificacao(3)
-    ->setEndereco('Rua das Lamentações...')
-    ->setEnderecoCobranca('Av. Bla Bla, N 800');;
-
-$cliente2 = new POO\Clientes\PessoaFisica();
-$cliente2->setNome('Bernado Silva')
-    ->setDataNascimento('25/09/2014')
-    ->setCpf('556.656.988-88')
-    ->setTelefone('(27)3536-5555')
-    ->setEmail('meuemail@emaildoido.com')
-    ->setClassificacao(5)
-    ->setEndereco('Rua das Lamentações...');
-
-$cliente3 = new POO\Clientes\PessoaFisica();
-$cliente3->setNome('Tárcio Silva')
-    ->setDataNascimento('25/09/2014')
-    ->setCpf('556.656.988-88')
-    ->setTelefone('(27)3536-5555')
-    ->setEmail('meuemail@emaildoido.com')
-    ->setClassificacao(1)
-    ->setEndereco('Rua dos Gols...');
-
-$cliente4 = new POO\Clientes\PessoaFisica();
-$cliente4->setNome('Samuel Costa')
-    ->setDataNascimento('25/09/2014')
-    ->setCpf('556.656.988-88')
-    ->setTelefone('(27)3536-5555')
-    ->setEmail('meuemail@emaildoido.com')
-    ->setClassificacao(2)
-    ->setEndereco('Rua do Código...');
-
-$cliente5 = new POO\Clientes\PessoaJuridica();
-$cliente5->setCnpj('323.565.0002-56')
-         ->setRazaoSocial('Funilaria LTDA')
-         ->setEnderecoEmpresa('Av. Negócio Próprio')
-         ->setTelefoneComercial('27-8898-5555')
-         ->setClassificacao(3)->setEnderecoCobranca('Rua dos E-mails, 500');
-
-$cliente6 = new POO\Clientes\PessoaJuridica();
-$cliente6->setCnpj('323.565.0002-56')
-    ->setRazaoSocial('Advogados LTDA')
-    ->setEnderecoEmpresa('Av. Negócio Próprio')
-    ->setTelefoneComercial('27-8898-5555')
-    ->setClassificacao(2);
-
-$cliente7 = new POO\Clientes\PessoaJuridica();
-$cliente7->setCnpj('323.565.0002-56')
-    ->setRazaoSocial('Supermercado e Associados')
-    ->setEnderecoEmpresa('Av. Negócio Próprio')
-    ->setTelefoneComercial('27-8898-5555')
-    ->setClassificacao(1)->setEnderecoCobranca('Rua dos Correios, 500');
-
-$cliente8 = new POO\Clientes\PessoaJuridica();
-$cliente8->setCnpj('323.565.0002-56')
-    ->setRazaoSocial('Imobiliaria  LTDA')
-    ->setEnderecoEmpresa('Av. Negócio Próprio')
-    ->setTelefoneComercial('27-8898-5555')
-    ->setClassificacao(4);
-
-$cliente9 = new POO\Clientes\PessoaJuridica();
-$cliente9->setCnpj('323.565.0002-56')
-    ->setRazaoSocial('Padaria do Zé LTDA')
-    ->setEnderecoEmpresa('Av. Negócio Próprio')
-    ->setTelefoneComercial('27-8898-5555')
-    ->setClassificacao(5)->setEnderecoCobranca('Rua das Cartas, 500');
-
-
-
 function abc($obj1, $obj2) {
     if ($obj1->getNome() < $obj2->getNome()) {
         return -1;
@@ -104,8 +18,36 @@ function cba($obj1, $obj2) {
     return 0;
 }
 
+$conn = new \POO\Database\ConnectDataBase('localhost', 'poo', 'root', '');
+$db = $conn->connectDb();
+
+$ClienteFixture = new \POO\Fixtures\Cliente\ClienteFixture($db);
+
+$ClienteFixture->createTables();
+$ClienteFixture->truncateTables();
+$ClienteFixture->insert();
+
+$stmt = $db->prepare("SELECT * FROM pessoafisica");
+$stmt->execute();
+
+$pessoaFisica = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$stmt = $db->prepare("SELECT * FROM pessoajuridica");
+$stmt->execute();
+
+$pessoaJuridica = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 $clientes = array();
-$clientes = [$cliente0, $cliente1, $cliente2, $cliente3, $cliente4, $cliente5, $cliente6, $cliente7, $cliente8, $cliente9];
+
+foreach ($pessoaFisica as $p)
+{
+    $clientes[] = $p;
+}
+
+foreach ($pessoaJuridica as $p)
+{
+    $clientes[] = $p;
+}
 
 $select = 'padrao';
 if(isset($_GET['ordem']) AND $_GET['ordem'] != '')
@@ -135,33 +77,36 @@ if(isset($_GET['ordem']) AND $_GET['ordem'] != '')
             <?php
             foreach($clientes as $c)
             {
+                if(!isset($c['nome']))
+                    $c['nome'] = $c['razaoSocial'];
+
                 echo "<div>";
-                    echo "<span class='info text-success' style='font-size: 110%; margin-left: 20px'>" . $c->getNome() . " </span>";
-                if($c instanceof POO\Clientes\PessoaJuridica)
+                    echo "<span class='info text-success' style='font-size: 110%; margin-left: 20px'>" . $c['nome'] . " </span>";
+                if(isset($c['razaoSocial']))
                 {
                     echo '<span class="text-danger text-uppercase">Pessoa Juridica</span>';
                     echo"<div style='margin-left:35px; display: none;'>" .
-                        "<strong>CNPJ: </strong>" . $c->getCnpj() . '<br >' .
-                        "<strong>Telefone: </strong>" . $c->getTelefoneComercial() . '<br >' .
-                        "<strong>Endereço: </strong> " . $c->getEnderecoEmpresa();
-                    if($c->getEnderecoCobranca())
-                         echo"<br ><strong>End.  Cobrança: </strong>". $c->getEnderecoCobranca();
+                        "<strong>CNPJ: </strong>" . $c['cnpj'] . '<br >' .
+                        "<strong>Telefone: </strong>" . $c['telefoneComercial'] . '<br >' .
+                        "<strong>Endereço: </strong> " . $c['enderecoEmpresa'];
+                    if($c['enderecoCobranca'])
+                         echo"<br ><strong>End.  Cobrança: </strong>". $c['enderecoCobranca'];
 
-                     echo "<br ><div class='star' data-average='". $c->getClassificacao() . "' data-id='2'></div>".
+                     echo "<br ><div class='star' data-average='". $c['classificacao'] . "' data-id='2'></div>".
                           "</div>";
                 }
                 else
                 {
                     echo '<span class="text-danger text-uppercase">Pessoa Fisica</span>'.
                             "<div style='margin-left:35px; display: none;'>" .
-                            "<strong>Data de Nascimento: </strong>" . $c->getDataNascimento() . '<br >' .
-                            "<strong>CPF: </strong>" . $c->getCpf() . '<br >' .
-                            "<strong>Telefone: </strong>" . $c->getTelefone() . '<br >' .
-                            "<strong>E-mail: </strong>" . $c->getEmail();
-                    if($c->getEnderecoCobranca())
-                        echo"<br ><strong>End.  Cobrança: </strong>". $c->getEnderecoCobranca();
+                            "<strong>Data de Nascimento: </strong>" . $c['data_nascimento'] . '<br >' .
+                            "<strong>CPF: </strong>" . $c['cpf'] . '<br >' .
+                            "<strong>Telefone: </strong>" . $c['telefone'] . '<br >' .
+                            "<strong>E-mail: </strong>" . $c['email'];
+                    if($c['enderecoCobranca'])
+                        echo"<br ><strong>End.  Cobrança: </strong>". $c['enderecoCobranca'];
 
-                     echo "<br ><div class='star' data-average='". $c->getClassificacao() . "' data-id='2'></div>".
+                     echo "<br ><div class='star' data-average='". $c['classificacao']. "' data-id='2'></div>".
                           "</div>";
                  }
                 echo "</div>";

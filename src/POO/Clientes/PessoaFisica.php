@@ -3,9 +3,9 @@
 namespace POO\Clientes;
 
 use POO\Clientes\Interfac\ClienteEndereco;
-use POO\Clientes\Ab\ClienteClassificacaoAbstract as Classificacao;
+use POO\Clientes\Ab\ClienteAbstract as Cliente;
 
-class PessoaFisica extends Classificacao implements ClienteEndereco {
+class PessoaFisica extends Cliente implements ClienteEndereco {
 
     protected  $nome;
     protected  $data_nascimento;
