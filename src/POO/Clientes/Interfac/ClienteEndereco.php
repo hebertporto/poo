@@ -1,4 +1,5 @@
 <?php
+namespace POO\Clientes\Interfac;
 
 interface ClienteEndereco {
 

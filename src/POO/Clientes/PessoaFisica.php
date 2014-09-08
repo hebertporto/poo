@@ -1,9 +1,11 @@
 <?php
 
-require_once('interfaces/ClienteClassificacao.php');
-require_once('interfaces/ClienteEndereco.php');
+namespace POO\Clientes;
 
-class Cliente implements ClienteClassificacao, ClienteEndereco {
+use POO\Clientes\Interfac\ClienteEndereco;
+use POO\Clientes\Ab\ClienteClassificacaoAbstract as Classificacao;
+
+class PessoaFisica extends Classificacao implements ClienteEndereco {
 
     protected  $nome;
     protected  $data_nascimento;
@@ -11,6 +13,8 @@ class Cliente implements ClienteClassificacao, ClienteEndereco {
     protected  $telefone;
     protected  $email;
     protected  $endereco;
+
+    protected  $enderecoCobranca;
 
     /**
      * @param mixed $endereco
@@ -29,12 +33,6 @@ class Cliente implements ClienteClassificacao, ClienteEndereco {
         return $this->endereco;
     }
 
-
-    protected  $classificacao;
-    protected  $enderecoCobranca;
-
-
-
     public function setEnderecoCobranca($enderecoCobranca)
     {
         $this->enderecoCobranca = $enderecoCobranca;
@@ -47,15 +45,6 @@ class Cliente implements ClienteClassificacao, ClienteEndereco {
     public function hasEnderecoCobranca()
     {
         return $this->getEnderecoCobranca();
-    }
-    public function setClassificacao($classificacao)
-    {
-        $this->classificacao = $classificacao;
-        return $this;
-    }
-    public function getClassificacao()
-    {
-        return $this->classificacao * 4;
     }
 
     /**

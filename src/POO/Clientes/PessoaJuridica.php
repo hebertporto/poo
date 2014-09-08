@@ -1,16 +1,18 @@
 <?php
 
-require_once('interfaces/ClienteClassificacao.php');
-require_once('interfaces/ClienteEndereco.php');
+namespace POO\Clientes;
 
-class ClientePessoaJuridica implements ClienteClassificacao, ClienteEndereco
+use POO\Clientes\Ab\ClienteClassificacaoAbstract as Classificacao;
+use POO\Clientes\Interfac\ClienteEndereco;
+
+class PessoaJuridica extends Classificacao implements ClienteEndereco
 {
     protected $razaoSocial;
     protected $cnpj;
     protected $telefoneComercial;
     protected $enderecoEmpresa;
 
-    private $classificacao;
+
     private $enderecoCobranca;
 
 
@@ -41,23 +43,6 @@ class ClientePessoaJuridica implements ClienteClassificacao, ClienteEndereco
             return TRUE;
         else
             return FALSE;
-    }
-
-    /**
-     * @param mixed $classificao
-     */
-    public function setClassificacao($classificao)
-    {
-        $this->classificacao = $classificao;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getClassificacao()
-    {
-        return $this->classificacao * 4;
     }
 
     /**

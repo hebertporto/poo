@@ -1,9 +1,8 @@
 <?php
 
-require_once('models/Cliente.php');
-require_once('models/ClientePessoaJuridica.php');
 
-$cliente0 = new Cliente();
+
+$cliente0 = new POO\Clientes\PessoaFisica();
 $cliente0->setNome('Arnaldo Ronaldo')
     ->setDataNascimento('25/09/2014')
     ->setCpf('556.656.988-88')
@@ -13,7 +12,7 @@ $cliente0->setNome('Arnaldo Ronaldo')
     ->setEndereco('Rua das Lamentações...')
     ->setEnderecoCobranca('Av. Bla Bla, N 800');
 
-$cliente1 = new Cliente();
+$cliente1 = new POO\Clientes\PessoaFisica();
 $cliente1->setNome('Zezerus José Ronaldo')
     ->setDataNascimento('25/09/2014')
     ->setCpf('556.656.988-88')
@@ -23,7 +22,7 @@ $cliente1->setNome('Zezerus José Ronaldo')
     ->setEndereco('Rua das Lamentações...')
     ->setEnderecoCobranca('Av. Bla Bla, N 800');;
 
-$cliente2 = new Cliente();
+$cliente2 = new POO\Clientes\PessoaFisica();
 $cliente2->setNome('Bernado Silva')
     ->setDataNascimento('25/09/2014')
     ->setCpf('556.656.988-88')
@@ -32,7 +31,7 @@ $cliente2->setNome('Bernado Silva')
     ->setClassificacao(5)
     ->setEndereco('Rua das Lamentações...');
 
-$cliente3 = new Cliente();
+$cliente3 = new POO\Clientes\PessoaFisica();
 $cliente3->setNome('Tárcio Silva')
     ->setDataNascimento('25/09/2014')
     ->setCpf('556.656.988-88')
@@ -41,7 +40,7 @@ $cliente3->setNome('Tárcio Silva')
     ->setClassificacao(1)
     ->setEndereco('Rua dos Gols...');
 
-$cliente4 = new Cliente();
+$cliente4 = new POO\Clientes\PessoaFisica();
 $cliente4->setNome('Samuel Costa')
     ->setDataNascimento('25/09/2014')
     ->setCpf('556.656.988-88')
@@ -50,35 +49,35 @@ $cliente4->setNome('Samuel Costa')
     ->setClassificacao(2)
     ->setEndereco('Rua do Código...');
 
-$cliente5 = new ClientePessoaJuridica();
+$cliente5 = new POO\Clientes\PessoaJuridica();
 $cliente5->setCnpj('323.565.0002-56')
          ->setRazaoSocial('Funilaria LTDA')
          ->setEnderecoEmpresa('Av. Negócio Próprio')
          ->setTelefoneComercial('27-8898-5555')
          ->setClassificacao(3)->setEnderecoCobranca('Rua dos E-mails, 500');
 
-$cliente6 = new ClientePessoaJuridica();
+$cliente6 = new POO\Clientes\PessoaJuridica();
 $cliente6->setCnpj('323.565.0002-56')
     ->setRazaoSocial('Advogados LTDA')
     ->setEnderecoEmpresa('Av. Negócio Próprio')
     ->setTelefoneComercial('27-8898-5555')
     ->setClassificacao(2);
 
-$cliente7 = new ClientePessoaJuridica();
+$cliente7 = new POO\Clientes\PessoaJuridica();
 $cliente7->setCnpj('323.565.0002-56')
     ->setRazaoSocial('Supermercado e Associados')
     ->setEnderecoEmpresa('Av. Negócio Próprio')
     ->setTelefoneComercial('27-8898-5555')
     ->setClassificacao(1)->setEnderecoCobranca('Rua dos Correios, 500');
 
-$cliente8 = new ClientePessoaJuridica();
+$cliente8 = new POO\Clientes\PessoaJuridica();
 $cliente8->setCnpj('323.565.0002-56')
     ->setRazaoSocial('Imobiliaria  LTDA')
     ->setEnderecoEmpresa('Av. Negócio Próprio')
     ->setTelefoneComercial('27-8898-5555')
     ->setClassificacao(4);
 
-$cliente9 = new ClientePessoaJuridica();
+$cliente9 = new POO\Clientes\PessoaJuridica();
 $cliente9->setCnpj('323.565.0002-56')
     ->setRazaoSocial('Padaria do Zé LTDA')
     ->setEnderecoEmpresa('Av. Negócio Próprio')
@@ -138,7 +137,7 @@ if(isset($_GET['ordem']) AND $_GET['ordem'] != '')
             {
                 echo "<div>";
                     echo "<span class='info text-success' style='font-size: 110%; margin-left: 20px'>" . $c->getNome() . " </span>";
-                if($c instanceof ClientePessoaJuridica)
+                if($c instanceof POO\Clientes\PessoaJuridica)
                 {
                     echo '<span class="text-danger text-uppercase">Pessoa Juridica</span>';
                     echo"<div style='margin-left:35px; display: none;'>" .

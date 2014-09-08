@@ -5,6 +5,7 @@ $url_final = substr($rota["path"], 1);
 if($url_final =='') # Traz a página Home ao acessar pela primeira vez.
 $url_final = 'home';
 
+include('../autoload.php');
 
 ?>
 <!DOCTYPE html>
@@ -13,9 +14,9 @@ $url_final = 'home';
         <meta charset="UTF-8">
         <title>Balanced Team Company</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="/css/jRating.jquery.css" media="screen" />
-        <link rel="icon"  type="image/png" href="/images/favicon.ico">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="css/jRating.jquery.css" media="screen" />
+        <link rel="icon"  type="image/png" href="images/favicon.ico">
     </head>
     <body>
         <div class="container">
@@ -23,9 +24,9 @@ $url_final = 'home';
             <?php require_once('incs/'. $url_final. '.php'); ?>
         </div>
 
-    <script src="/js/jquery.min.js"></script>
-    <script type="text/javascript" src="/js/jRating.jquery.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/cliente.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jRating.jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/cliente.js"></script>
     </body>
 </html>
