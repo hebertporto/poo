@@ -1,18 +1,20 @@
 <?php
 
-function abc($obj1, $obj2) {
-    if ($obj1->getNome() < $obj2->getNome()) {
+function abc($array1, $array2) {
+
+
+    if ($array1['nome'] < $array2['nome']) {
         return -1;
-    } elseif ($obj1->getNome() > $obj2->getNome()) {
+    } elseif ($array1['nome'] > $array2['nome']) {
         return +1;
     }
     return 0;
 }
 
-function cba($obj1, $obj2) {
-    if ($obj1->getNome() < $obj2->getNome()) {
+function cba($array1, $array2) {
+    if ($array1['nome'] < $array2['nome'] ) {
         return +1;
-    } elseif ($obj1->getNome() > $obj2->getNome()) {
+    } elseif ($array1['nome'] > $array2['nome'] ) {
         return -1;
     }
     return 0;
@@ -46,6 +48,7 @@ foreach ($pessoaFisica as $p)
 
 foreach ($pessoaJuridica as $p)
 {
+    $p['nome'] = $p['razaoSocial'];
     $clientes[] = $p;
 }
 
@@ -77,9 +80,6 @@ if(isset($_GET['ordem']) AND $_GET['ordem'] != '')
             <?php
             foreach($clientes as $c)
             {
-                if(!isset($c['nome']))
-                    $c['nome'] = $c['razaoSocial'];
-
                 echo "<div>";
                     echo "<span class='info text-success' style='font-size: 110%; margin-left: 20px'>" . $c['nome'] . " </span>";
                 if(isset($c['razaoSocial']))
